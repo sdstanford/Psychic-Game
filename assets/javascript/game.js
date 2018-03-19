@@ -35,7 +35,12 @@ document.onkeyup = function(event) {
     
     //Check if user wins
     if (userGuess===computerPick){
+        
+    alert("Great guess! You win!");
+
     $("#wins").text("Wins: " + wins++); 
+
+
     }
 
     //Update losses aftr 10 tries
