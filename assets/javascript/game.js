@@ -3,7 +3,7 @@ var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
 var wins = 0;
 var losses = 0;
 var guessesLeft = 10;
-var guessesSoFar = [];
+var userArray = [];
 var computerPick = letters[Math.floor(Math.random() * letters.length)];
 
 //Create functions to update score and guesses left
@@ -11,6 +11,7 @@ window.onload = function setScore() {
     $("#wins").text("Wins: " + wins);
     $("#losses").text("Losses: " + losses);
     $("#guessesleft").text("Guesses Remaining: " + guessesLeft);
+    $("#sofar").text("Your Guesses: " + userArray);
 };
 
 
@@ -28,24 +29,29 @@ document.onkeyup = function(event) {
       console.log("Your Pick: " + userGuess);
       
       //Print user guesses to screen
-      $("#sofar").append(userGuess);
+      userArray.push(userGuess)
+      $("#sofar").text("Your Guesses: " + userArray);
+
+    //   $("#sofar").append(userArray);
 
       //Remove one guess from Guesses Left
       $("#guessesleft").text("Guesses Remaining: " + guessesLeft--);
     
-    //Check if user wins
-    if (userGuess===computerPick){
-        
+    //Check if user wins, clear user guesses
+    if (userGuess===computerPick) {
     alert("Great guess! You win!");
-
-    $("#wins").text("Wins: " + wins++); 
-
-
+    wins++;
+    $("#wins").text("Wins: " + wins); 
+    guessesLeft=10;
     }
 
-    //Update losses aftr 10 tries
+    //Update losses aftr 10 tries, clear user guesses
     if (guessesLeft <= 0){
-    $("#losses").text("Losses: " + losses++);
+    alert("You've lost! Press OK to keep playing");
+    losses++;
+    $("#losses").text("Losses: " + losses);
+    guessesLeft=10;
+    document.getElementById("sofar").clear();
 
     }
   };
